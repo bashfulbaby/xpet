@@ -6,9 +6,6 @@
 
 #define PET_ASSET_DIR   "/home/uint/programming/c/xpet/pets/neko"
 
-#define MULTIPLE_PETS   False   /* using multiple pets will disable you from using keybinds */
-#define PETS            1       /* number of pets on screen                                 */
-
 #define PET_SPEED       20      /* pixels per frame - constant movement speed               */
 #define PET_REFRESH     200     /* ms between movement updates (16ms=60fps)                 */
 #define FRAME_DURATION  200     /* ms between frames (can be overridden per frame)          */

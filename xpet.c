@@ -58,6 +58,7 @@ XFontSet font_set;
 
 struct mouse mouse;
 struct pet pet;
+int n_pets = 1;
 
 void create_window(void)
 {
@@ -656,9 +657,9 @@ void setup(void)
 	pick_random_destination();
 	create_window();
 
-	if (!MULTIPLE_PETS) {
-		grab_keys();
-	}
+	/* if (!MULTIPLE_PETS) { */
+	grab_keys();
+	/* } */
 	XSelectInput(dpy, root, KeyPressMask);
 }
 
@@ -804,10 +805,22 @@ void xsleep(long ms)
 
 int main(int argc, char** argv)
 {
-	(void)argv;
 	if (argc > 1) {
-		printf("xpets " VERSION "\n> uint 2025\n");
-		return 0;
+		if (argv[1][0] == 's') {
+			int arg_len = strlen(argv[1]);
+			char n_pets_s[1024];
+
+			if (arg_len > 2) {
+			}
+		}
+		else {
+			printf(
+				"xpets "VERSION"\n"
+				"specify pet count with ./xpet n=<number of pets>\n"
+				"> uint 2025\n"
+			);
+			return 0;
+		}
 	}
 	setup();
 	run();
