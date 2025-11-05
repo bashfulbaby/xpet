@@ -4,10 +4,13 @@
 
 #include "xpet.h"
 
-#define PET_SPEED       2       /* pixels per frame - constant movement speed */
-#define PET_REFRESH     24      /* ms between movement updates (16ms=60fps) */
+#define PET_ASSET_DIR   "/home/uint/programming/c/xpet/pets/neko"
+
+#define MULTIPLE_PETS   False   /* using multiple pets will disable you from using keybinds */
+
+#define PET_SPEED       10      /* pixels per frame - constant movement speed */
+#define PET_REFRESH     200     /* ms between movement updates (16ms=60fps) */
 #define FRAME_DURATION  200     /* ms between frames (can be overridden per frame) */
-#define PET_ASSET_DIR   "/aboslute/path/to/xpet/pets/neko"
 
 #define WANDER_MIN_WAIT 16000   /* min ms to wait at destination */
 #define WANDER_MAX_WAIT 32000   /* max ms to wait at destination */
@@ -25,9 +28,7 @@
 
 /* speech phrases */
 const char* pet_phrases[] = {
-	"イスから降りなさい、なまけものさん、にゃ〜！",
-	"あらまぁ、太りすぎだよ、にゃ〜！",
-	"meow meow mfer",
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
 	NULL  /* sentinel, do not remove */
 };
 
