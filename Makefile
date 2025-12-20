@@ -1,80 +1,47 @@
 # tools
-CC ?= cc
-PKG_CONFIG ?= pkg-config
+CC = cc
 
-# install dirs
-PREFIX ?= /usr/local
-DESTDIR ?=
-BIN := xpet
-MAN := xpet.1
-MAN_DIR := $(PREFIX)/share/man/man1
+# paths
+PREFIX = /usr/local
+MANPREFIX = ${PREFIX}/share/man
 
-# layout
-SRC_DIR := ./
-OBJ_DIR := obj/
-
-SRC := $(wildcard $(SRC_DIR)/*.c)
-OBJ := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
-DEP := $(OBJ:.o=.d)
+# libs
+LIBS = -lX11 -lXpm -lXext
 
 # flags
-CPPFLAGS ?= -Isrc -D_FORTIFY_SOURCE=2
+CPPFLAGS = -D_DEFAULT_SOURCE
+CFLAGS  = -std=c99 -pedantic -Wall -Wextra -Os ${CPPFLAGS} -I/usr/X11R6/include
+LDFLAGS = ${LIBS} -L/usr/X11R6/lib
 
-# compile flags + warnings, hardening
-CFLAGS ?= -std=c99 -Os -pipe \
-		  -Wall -Wextra -Wformat=2 -Werror=format-security \
-		  -Wshadow -Wpointer-arith -Wmissing-prototypes \
-		  -Wstrict-prototypes -Wundef -Wvla \
-		  -fno-common -fno-strict-aliasing \
-		  -fstack-protector-strong -fPIE \
-		  -ffunction-sections -fdata-sections \
-		  -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-ident
+# files
+SRC = xpet.c
+BIN = xpet
+MAN = xpet.1
 
-# linker
-LDFLAGS ?= -Wl,-Os -pie -Wl,--as-needed -Wl,--gc-sections -Wl,-s
+all: ${BIN}
 
-# libraries
-CFLAGS += $(shell $(PKG_CONFIG) --cflags x11)
-LDLIBS += $(shell $(PKG_CONFIG) --libs   x11) -lXpm -lXext
-
-.PHONY: all clean install uninstall clangd
-.SUFFIXES:
-
-all: $(BIN)
-
-$(BIN): $(OBJ)
-	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	@mkdir -p $(dir $@)
-	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -c -o $@ $<
-
--include $(DEP)
-
-$(OBJ_DIR):
-	@mkdir -p $@
+${BIN}: ${SRC}
+	${CC} ${CFLAGS} ${SRC} -o ${BIN} ${LDFLAGS}
 
 clean:
-	@rm -rf $(OBJ_DIR) $(BIN)
+	rm -f ${BIN}
 
 install: all
-	@echo "installing $(BIN) to $(DESTDIR)$(PREFIX)/bin..."
-	@mkdir -p "$(DESTDIR)$(PREFIX)/bin"
-	@install -m 755 $(BIN) "$(DESTDIR)$(PREFIX)/bin/$(BIN)"
-	@echo "installing man page to $(DESTDIR)$(MAN_DIR)..."
-	@mkdir -p "$(DESTDIR)$(MAN_DIR)"
-	@install -m 644 $(MAN) "$(DESTDIR)$(MAN_DIR)/"
-	@echo "installation complete :)"
+	mkdir -p ${DESTDIR}${PREFIX}/bin
+	cp -f ${BIN} ${DESTDIR}${PREFIX}/bin/
+	chmod 755 ${DESTDIR}${PREFIX}/bin/${BIN}
+
+	mkdir -p ${DESTDIR}${MANPREFIX}/man1
+	cp -f ${MAN} ${DESTDIR}${MANPREFIX}/man1/
+	chmod 644 ${DESTDIR}${MANPREFIX}/man1/${MAN}
 
 uninstall:
-	@echo "uninstalling $(BIN) from $(DESTDIR)$(PREFIX)/bin..."
-	@rm -f "$(DESTDIR)$(PREFIX)/bin/$(BIN)"
-	@echo "uninstalling man page from $(DESTDIR)$(MAN_DIR)..."
-	@rm -f "$(DESTDIR)$(MAN_DIR)/$(MAN)"
-	@echo "uninstallation complete :)"
+	rm -f \
+		${DESTDIR}${PREFIX}/bin/${BIN} \
+		${DESTDIR}${MANPREFIX}/man1/${MAN}
 
-# dev tools
 clangd:
-	@echo "generating compile_flags.txt"
-	@rm -f compile_flags.txt
-	@for flag in $(CPPFLAGS) $(CFLAGS); do echo $$flag >> compile_flags.txt; done
+	rm -f compile_flags.txt
+	for f in ${CFLAGS}; do echo $$f >> compile_flags.txt; done
+
+.PHONY: all clean install uninstall clangd
