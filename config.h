@@ -4,9 +4,9 @@
 
 #include "xpet.h"
 
-#define PET_ASSET_DIR   "/path/to/xpet/pets/neko"
+#define PET_ASSET_DIR   "/home/ch_rism_/.cache/wal/xbaby"
 
-#define PET_SPEED       20      /* pixels per frame - constant movement speed               */
+#define PET_SPEED       30      /* pixels per frame - constant movement speed               */
 #define PET_REFRESH     200     /* ms between movement updates (16ms=60fps)                 */
 #define FRAME_DURATION  200     /* ms between frames (can be overridden per frame)          */
 #define UNFREEZE_DELAY  2000    /* ms before pet walks again after unfreezing               */
@@ -27,28 +27,33 @@
 
 /* speech phrases */
 const char* pet_phrases[] = {
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-	NULL  /* sentinel, do not remove */
+    "your diaper is kinda 'tinky...",
+    "change your diaper, poopypants!",
+    "you're an even tinier baby than me!",
+    "why is your bumbum so poofy? are you wearing a diaper?",
+    "*pokes your diaper* squiiiiish",
+    "*pokes your diaper* why is your peepee so tiny?",
+    NULL  /* sentinel, do not remove */
 };
 
 struct bind bindings[] = {
-	{.sym = XK_f, .mask = Mod1Mask}, /* call/chase toggle */
-	{.sym = XK_s, .mask = Mod1Mask}, /* freeze toggle */
-	{.sym = XK_q, .mask = Mod1Mask}, /* quit */
+    {.sym = XK_c, .mask = Mod1Mask}, /* call/chase toggle */
+    {.sym = XK_f, .mask = Mod1Mask}, /* freeze toggle */
+    {.sym = XK_q, .mask = Mod1Mask}, /* quit */
 };
 
 struct animation animations[] = {
-	[HAPPY]    = { .name = "happy",     .n_frames = 6, .loop = True, .frames = NULL, .frame_durations = NULL },
-	[SLEEPING] = { .name = "sleeping",  .n_frames = 6, .loop = True, .frames = NULL, .frame_durations = NULL},
-	[IDLE]     = { .name = "idle",      .n_frames = 6, .loop = True, .frames = NULL, .frame_durations = NULL },
-	[DRAGGED]  = { .name = "dragged",   .n_frames = 6, .loop = True, .frames = NULL, .frame_durations = NULL },
+    [HAPPY]    = { .name = "happy",     .n_frames = 6, .loop = True, .frames = NULL, .frame_durations = NULL },
+    [SLEEPING] = { .name = "sleeping",  .n_frames = 6, .loop = True, .frames = NULL, .frame_durations = NULL},
+    [IDLE]     = { .name = "idle",      .n_frames = 6, .loop = True, .frames = NULL, .frame_durations = NULL },
+    [DRAGGED]  = { .name = "dragged",   .n_frames = 6, .loop = True, .frames = NULL, .frame_durations = NULL },
 
-	[N]  = { .name = "walk_north",      .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
-	[S]  = { .name = "walk_south",      .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
-	[E]  = { .name = "walk_east",       .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
-	[W]  = { .name = "walk_west",       .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
-	[NW] = { .name = "walk_northwest",  .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
-	[NE] = { .name = "walk_northeast",  .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
-	[SW] = { .name = "walk_southwest",  .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
-	[SE] = { .name = "walk_southeast",  .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
+    [N]  = { .name = "walk_north",      .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
+    [S]  = { .name = "walk_south",      .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
+    [E]  = { .name = "walk_east",       .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
+    [W]  = { .name = "walk_west",       .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
+    [NW] = { .name = "walk_northwest",  .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
+    [NE] = { .name = "walk_northeast",  .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
+    [SW] = { .name = "walk_southwest",  .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
+    [SE] = { .name = "walk_southeast",  .n_frames = 2, .loop = True, .frames = NULL, .frame_durations = NULL },
 };

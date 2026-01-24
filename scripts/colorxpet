@@ -1,0 +1,21 @@
+#!/bin/sh
+
+pet="neko"
+
+escaper() {
+    sed 's/[&/\]/\\&/g'
+}
+
+srcdir="$HOME/.local/state/xpet/$pet"
+outdir="$HOME/.cache/wal/xpet"
+walcol="$HOME/.cache/wal/colors.xpet"
+
+line5="$(sed -n 1p "$walcol" | escaper)"
+line6="$(sed -n 2p "$walcol" | escaper)"
+
+find "$srcdir" -type f -name '*.xpm' | while IFS= read -r file; do
+    rel="${file#$srcdir/}"
+    out="$outdir/$rel"
+    mkdir -p "$(dirname "$out")"
+    sed "5s|.*|$line5|; 6s|.*|$line6|" "$file" > "$out"
+done
