@@ -73,6 +73,15 @@ void create_window(void)
 		dpy, root, pet.x, pet.y, 64, 64, 0, CopyFromParent,
 		InputOutput, CopyFromParent, CWOverrideRedirect, &attrs
 	);
+
+    XClassHint *class_hint = XAllocClassHint();
+    if (class_hint) {
+        class_hint->res_name = "xpet";
+        class_hint->res_class = "xpet";
+        XSetClassHint(dpy, pet.window, class_hint);
+        XFree(class_hint);
+    }
+
 	struct frame* f = &pet.current_animation->frames[0];
 	XShapeCombineMask(
 		dpy, pet.window, ShapeBounding,
