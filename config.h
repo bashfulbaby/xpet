@@ -4,7 +4,7 @@
 
 #include "xpet.h"
 
-#define PET_ASSET_DIR   "/home/ch_rism_/.cache/wal/xbaby"
+#define PET_ASSET_DIR   "/path/to/xpms"
 
 #define PET_SPEED       30      /* pixels per frame - constant movement speed               */
 #define PET_REFRESH     200     /* ms between movement updates (16ms=60fps)                 */
@@ -31,18 +31,10 @@ const char* pet_phrases[] = {
     "change your diaper, poopypants!",
     "you're an even tinier baby than me!",
     "why is your bumbum so poofy? are you wearing a diaper? (owo)",
-    "*pokes your diaper* squiiiiish uwu",
-    "*pokes your diaper* why is your peepee so tiny? (owo)",
+    "*pokes your diaper* squiiiiish",
+    "*pokes your diaper* why is your peepee so tiny? (o.O)",
     "hi there, BIG DIAPERBABY!!",
-    "I love my Daddy Bear soooo much!! ʕ •.•ʔ",
-    "Snuggle alert!! Diaper bear love incoming!!",
-    "My heart is full of fuzzy daddy bear hugs!!",
-    "Crinkle cuddles make everything better",
-    "I'm the luckiest raccoon with the bestest dadda!",
-    "Binky kisses and belly pats for my dadda!",
-    "Daddy's chest is the comfiest place in the universe",
-    "Cuddle detected! Deploying fluffy hugs in 3... 2... 1...",
-    "Dadda makes my babybrain go soft and squishy (@.@)",
+    "dadda makes my babybrain go soft and squishy (@.@)",
     NULL  /* sentinel, do not remove */
 };
 
