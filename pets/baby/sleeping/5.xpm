@@ -31,7 +31,7 @@ static const char *xpm_5[] = {
 " XOOOXooOOOOOOOOOOOOOoo...      ",
 "  XOOOX...............o.        ",
 "   XOOXOOOOOOOOOOOOOOO.         ",
-"    XXXOOOOOOOOOOOOOOO..        ",
+"    XX.OOOOOOOOOOOOOOO..        ",
 "    .o.OOOOOOOOOOOOOOO.o.       ",
 "   .Ooo.OOOOOOXOOOOOO.ooO.      ",
 "  .OOooo.OOOOOXOOOOO.oooOO.     ",
